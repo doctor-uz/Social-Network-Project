@@ -1,0 +1,14 @@
+.welcome-container {
+    border: 3px solid black;
+    background: skyblue;
+    padding: 10px;
+}
+
+.registration-container {
+    border: 3px solid black;
+    background: gray;
+}
+
+.error {
+    color: red;
+}
