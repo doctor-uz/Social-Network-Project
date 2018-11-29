@@ -13,12 +13,11 @@ exports.createUser = (first, last, email, password) => {
     );
 };
 
-// exports.getUser = email => {
-//     return db.query(
-//         `SELECT users.id AS "userId", users.pass, signatures.id AS "signaturesId"
-//         FROM users
-//         LEFT JOIN signatures ON users.id = signatures.user_id
-//         WHERE users.email = $1`,
-//         [email]
-//     );
-// };
+exports.getUser = email => {
+    return db.query(
+        `SELECT users.id AS "userId", users.password
+        FROM users
+        WHERE users.email = $1`,
+        [email]
+    );
+};

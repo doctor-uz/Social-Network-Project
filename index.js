@@ -51,6 +51,34 @@ app.post("/registration", (req, res) => {
         });
 });
 
+// var popup = require("popups");
+// var alert = require("alert-node");
+
+app.post("/login", (req, res) => {
+    db.getUser(req.body.email)
+        .then(result => {
+            compare(req.body.password, result.rows[0].password)
+                .then(doesMatch => {
+                    if (doesMatch === true) {
+                        req.session.userId = result.rows[0].userId;
+                        res.json({ success: true });
+                    } else {
+                        console.log("Wrong password, please try again");
+                        res.json({ success: false });
+                        // alert("Wrong password, please try again");
+                    }
+                })
+                .catch(err => {
+                    res.json({ success: false });
+                    console.log("error in password: ", err);
+                });
+        })
+        .catch(err => {
+            res.json({ success: false });
+            console.log("error in email: ", err);
+        });
+});
+
 app.get("*", function(req, res) {
     res.sendFile(__dirname + "/index.html");
 });

@@ -2,7 +2,7 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {};
@@ -25,7 +25,7 @@ export default class Registration extends React.Component {
     handleSubmit(e) {
         e.preventDefault();
         console.log("handle submit runnig", this.state);
-        axios.post("/registration", this.state).then(resp => {
+        axios.post("/login", this.state).then(resp => {
             console.log("resp in then of POST /registration", resp);
 
             //if allesgut
@@ -41,26 +41,14 @@ export default class Registration extends React.Component {
 
     render() {
         return (
-            <div className="registration-container">
-                <h1>Registration running!!!</h1>
+            <div>
+                <h1>login!!!!!!!!!</h1>
                 {this.state.error && (
                     <div className="error">Error, please try again!</div>
                 )}
-                <Link to="/login">Click here to login</Link>
+                <Link to="/">Click here to registration</Link>
 
                 <form onSubmit={this.handleSubmit}>
-                    <input
-                        onChange={this.handleChange}
-                        name="first"
-                        type="text"
-                        placeholder="first name"
-                    />
-                    <input
-                        onChange={this.handleChange}
-                        name="last"
-                        type="text"
-                        placeholder="last name"
-                    />
                     <input
                         onChange={this.handleChange}
                         name="email"
@@ -73,7 +61,7 @@ export default class Registration extends React.Component {
                         type="password"
                         placeholder="password"
                     />
-                    <button>register</button>
+                    <button>Log in</button>
                 </form>
             </div>
         );
