@@ -6,6 +6,40 @@ const { hash, compare } = require("./bcrypt");
 const db = require("./db");
 var cookieSession = require("cookie-session");
 
+//////////////////////////////////////////////////
+app.use((req, res, next) => {
+    res.setHeader("X-Frame-Options", "DENY");
+    next();
+});
+//////////////////////////////////////////////////
+
+//// do not touch!
+var multer = require("multer");
+var uidSafe = require("uid-safe");
+var path = require("path");
+const s3 = require("./s3");
+const config = require("./config.json");
+
+var diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+var uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 4097152
+    }
+});
+
+///=======do not touch
+
 app.use(compression());
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,6 +56,8 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+app.use(require("cookie-parser")());
+
 app.use(
     cookieSession({
         secret: `I'm always angry.`,
@@ -30,6 +66,55 @@ app.use(
 );
 
 app.use(express.static("./public"));
+
+//
+//
+
+app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
+    if (req.file) {
+        var cUrl = config.s3Url + req.file.filename;
+        console.log("cUrl:", cUrl);
+        db.addImages(req.session.userId, cUrl)
+            .then(results => {
+                res.json(results);
+            })
+            .catch(err => {
+                console.log("error in post /upload:", err);
+            });
+    } else {
+        res.json({
+            success: false
+        });
+    }
+});
+
+// app.post("/upload", (req, res) => {
+//     console.log(req);
+//     var cUrl = config.s3Url + req.file.filename;
+//     console.log("cUrl:", cUrl);
+//     db.addImages(req.session.user_id, cUrl)
+//         .then(results => {
+//             res.json(results);
+//         })
+//         .catch(err => {
+//             console.log("error in post /upload:", err);
+//         });
+// });
+
+app.get("/user", (req, res) => {
+    console.log("get request in user");
+    db.getUserData(req.session.userId).then(results => {
+        res.json(results);
+    });
+});
+
+app.get("/welcome", function(req, res) {
+    if (req.session.userId) {
+        res.redirect("/");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
+});
 
 app.post("/registration", (req, res) => {
     console.log("req body in SERVER /registration: ", req.body);
@@ -43,16 +128,13 @@ app.post("/registration", (req, res) => {
             req.session.first = results.rows[0].first;
             req.session.last = results.rows[0].last;
             req.session.email = results.rows[0].email;
-            res.json({ success: true });
+            res.json({ success: true }); //res.json(result);
         })
         .catch(err => {
             console.log("Error in POST /registration: ", err);
             res.json({ success: false });
         });
 });
-
-// var popup = require("popups");
-// var alert = require("alert-node");
 
 app.post("/login", (req, res) => {
     db.getUser(req.body.email)
@@ -79,8 +161,17 @@ app.post("/login", (req, res) => {
         });
 });
 
+app.get("/logout", function(req, res) {
+    req.session = null;
+    res.redirect("/login");
+});
+
 app.get("*", function(req, res) {
-    res.sendFile(__dirname + "/index.html");
+    if (!req.session.userId) {
+        res.redirect("/welcome");
+    } else {
+        res.sendFile(__dirname + "/index.html");
+    }
 });
 
 app.listen(8080, function() {

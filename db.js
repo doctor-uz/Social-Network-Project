@@ -21,3 +21,22 @@ exports.getUser = email => {
         [email]
     );
 };
+
+exports.getUserData = userId => {
+    return db.query(
+        `SELECT *
+        FROM users
+        WHERE id = $1`,
+        [userId]
+    );
+};
+
+exports.addImages = (userId, profilePicUrl) => {
+    return db.query(
+        `UPDATE users
+        SET profilePicUrl = $2
+        WHERE id = $1
+        RETURNING *`,
+        [userId, profilePicUrl]
+    );
+};

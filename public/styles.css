@@ -12,3 +12,8 @@
 .error {
     color: red;
 }
+
+#profilepic {
+    height: 150px;
+    width: 150px;
+}

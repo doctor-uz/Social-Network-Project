@@ -5,5 +5,8 @@ CREATE TABLE users(
     first VARCHAR(255) NOT NULL,
     last VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE CHECK(email <> ''),
-    password VARCHAR(255) NOT NULL
+    password VARCHAR(255) NOT NULL,
+    bio TEXT,
+    profilePicUrl TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

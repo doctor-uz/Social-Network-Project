@@ -1,7 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import Welcome from "./welcome";
-import Logo from "./logo";
+//import Logo from "./logo";
+import App from "./app";
 
 // import Hello from "./hello";
 
@@ -13,11 +14,9 @@ let component;
 if (location.pathname == "/welcome") {
     //render welcome
     component = <Welcome />;
-}
-
-if (location.pathname == "/") {
+} else {
     //render welcome
-    component = <Logo />;
+    component = <App />;
 }
 
 ReactDOM.render(component, document.querySelector("main"));
