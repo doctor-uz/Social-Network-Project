@@ -3,13 +3,15 @@ import React from "react";
 export default function ProfilePic(props) {
     console.log("props is: ", props);
     return (
-        <div>
+        <div className="firstlast">
             <img
-                onClick={props.showUploader}
-                src={props.profilePicUrl}
-                alt={`${props.first} ${props.last}`}
                 id="profilepic"
+                src={props.profilePicUrl}
+                onClick={props.showUploader}
             />
+            <h3 id="firstlast">
+                {props.first} {props.last}
+            </h3>
         </div>
     );
 }

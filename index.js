@@ -70,6 +70,23 @@ app.use(express.static("./public"));
 //
 //
 
+app.post("/bio", function(req, res) {
+    // var cUrl = config.s3Url + req.file.filename;
+    // console.log("cUrl:", cUrl);
+    console.log("conslo log body: ", req.body);
+    db.updateBio(req.session.userId, req.body.bio)
+        .then(results => {
+            console.log("Results from server: ", results);
+            res.json(results);
+        })
+        .catch(err => {
+            console.log("ERROR in post /bio:", err);
+            res.json({
+                success: false
+            });
+        });
+});
+
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     if (req.file) {
         var cUrl = config.s3Url + req.file.filename;
@@ -88,23 +105,10 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     }
 });
 
-// app.post("/upload", (req, res) => {
-//     console.log(req);
-//     var cUrl = config.s3Url + req.file.filename;
-//     console.log("cUrl:", cUrl);
-//     db.addImages(req.session.user_id, cUrl)
-//         .then(results => {
-//             res.json(results);
-//         })
-//         .catch(err => {
-//             console.log("error in post /upload:", err);
-//         });
-// });
-
 app.get("/user", (req, res) => {
     console.log("get request in user");
     db.getUserData(req.session.userId).then(results => {
-        res.json(results);
+        res.json(results.rows[0]);
     });
 });
 
