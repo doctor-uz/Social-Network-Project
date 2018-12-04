@@ -50,3 +50,12 @@ exports.updateBio = (userId, bio) => {
         [userId, bio]
     );
 };
+
+exports.otherPersonProfiles = id => {
+    return db.query(
+        `SELECT *
+        FROM users
+        WHERE id = $1`,
+        [id]
+    );
+};

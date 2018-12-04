@@ -34,6 +34,11 @@ body {
     width: 250px;
 }
 
+#otherpersonpic {
+    height: 250px;
+    width: 250px;
+}
+
 .bigpic {
     float: left;
     padding: 50px 20px 20px 20px;

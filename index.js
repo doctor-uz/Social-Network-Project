@@ -164,6 +164,13 @@ app.post("/login", (req, res) => {
             console.log("error in email: ", err);
         });
 });
+app.get("/user/:id/info", function(req, res) {
+    // console.log("user/id/json: ", req.pareams);
+    db.otherPersonProfiles(req.params.id).then(data =>
+        res.json({ userId: req.session.userId, data: data })
+    );
+    console.log("my data log: ", req);
+});
 
 app.get("/logout", function(req, res) {
     req.session = null;

@@ -5,6 +5,7 @@ import ProfilePic from "./profilepic";
 import Uploader from "./uploader";
 import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./profile";
+import OtherPersonProfile from "./otherpersonprofile";
 
 export default class App extends React.Component {
     constructor() {
@@ -93,6 +94,22 @@ export default class App extends React.Component {
                                             bio={this.state.bio}
                                             setBio={this.setBio}
                                             showUploader={this.showUploader}
+                                        />
+                                    );
+                                }}
+                            />
+
+                            <Route
+                                path="/user/:id"
+                                render={props => {
+                                    return (
+                                        <OtherPersonProfile
+                                            {...props}
+                                            key={props.match.url}
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            email={this.state.email}
+                                            bio={this.state.bio}
                                         />
                                     );
                                 }}
