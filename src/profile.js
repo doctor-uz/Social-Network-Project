@@ -11,8 +11,13 @@ export default function Profile(props) {
                 showUploader={props.showUploader}
                 profilePicUrl={props.profilePicUrl || "/unknown.jpeg"}
             />
-            {props.first} {props.last}
-            <Bio bio={props.bio} setBio={props.setBio} />
+
+            <div id="firstlast2">
+                <h2>
+                    {props.first} {props.last}
+                </h2>
+                <Bio bio={props.bio} setBio={props.setBio} />
+            </div>
         </div>
     );
 }

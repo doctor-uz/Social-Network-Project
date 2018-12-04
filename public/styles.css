@@ -36,8 +36,9 @@ body {
 
 .bigpic {
     float: left;
-    display: flex;
     padding: 50px 20px 20px 20px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .logo-container {
@@ -59,9 +60,12 @@ body {
 }
 
 #firstlast {
-    margin-right: 10px;
+    margin-right: 20px;
 }
 
+#firstlast2 {
+    margin-left: 20px;
+}
 .uploader {
     background-color: #65688a;
     display: inline-block;
