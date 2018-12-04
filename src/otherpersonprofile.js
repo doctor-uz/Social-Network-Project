@@ -45,13 +45,13 @@ export default class OtherPersonProfile extends React.Component {
                 />
                 <h1>OPP running!!!!</h1>
                 <br /> <br />
-                {this.state.first}
-                <br /> <br />
-                {this.state.last}
+                {this.state.first} {this.state.last}
                 <br /> <br />
                 {this.state.email}
                 <br /> <br />
                 {this.state.bio}
+                <br /> <br />
+                {this.state.created_at}
                 <br /> <br />
             </div>
         );

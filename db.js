@@ -53,7 +53,7 @@ exports.updateBio = (userId, bio) => {
 
 exports.otherPersonProfiles = id => {
     return db.query(
-        `SELECT *
+        `SELECT first, last, email, profilepicurl, created_at, bio
         FROM users
         WHERE id = $1`,
         [id]
