@@ -166,9 +166,11 @@ app.post("/login", (req, res) => {
 });
 app.get("/user/:id/info", function(req, res) {
     // console.log("user/id/json: ", req.pareams);
-    db.otherPersonProfiles(req.params.id).then(data =>
-        res.json({ userId: req.session.userId, data: data })
-    );
+    db.otherPersonProfiles(req.params.id)
+        .then(data => res.json({ userId: req.session.userId, data: data }))
+        .catch(err => {
+            res.json(err);
+        });
     console.log("my data log: ", req);
 });
 

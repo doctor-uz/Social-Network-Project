@@ -22,11 +22,12 @@ export default class OtherPersonProfile extends React.Component {
                 ) {
                     this.props.history.push("/");
                 } else {
-                    this.setState(data.rows[0]);
+                    this.setState(data.data.rows[0]);
                 }
             })
-            .catch(() => {
-                console.log("this is my app axios data: ", this.state);
+            .catch(res => {
+                this.props.history.push("/");
+                console.log("error in email: ", res);
             });
         //redirect user to / Route
     }
