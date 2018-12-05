@@ -24,7 +24,7 @@ export default class Registration extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("handle submit runnig", this.state);
+        // console.log("handle submit runnig", this.state);
         axios.post("/registration", this.state).then(resp => {
             console.log("resp in then of POST /registration", resp);
 

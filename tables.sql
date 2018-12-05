@@ -15,8 +15,8 @@ CREATE TABLE users(
 
 CREATE TABLE friendships(
     id SERIAL PRIMARY KEY,
-    receiver_id INTEGER NOT NULL REFERENCES users(id),
-    sender_id INTEGER NOT NULL REFERENCES users(id),
+    receiverid INTEGER NOT NULL REFERENCES users(id),
+    senderid INTEGER NOT NULL REFERENCES users(id),
     accepted BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

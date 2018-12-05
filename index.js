@@ -73,7 +73,7 @@ app.use(express.static("./public"));
 app.post("/bio", function(req, res) {
     // var cUrl = config.s3Url + req.file.filename;
     // console.log("cUrl:", cUrl);
-    console.log("conslo log body: ", req.body);
+    // console.log("conslo log body: ", req.body);
     db.updateBio(req.session.userId, req.body.bio)
         .then(results => {
             console.log("Results from server: ", results);
@@ -90,7 +90,7 @@ app.post("/bio", function(req, res) {
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     if (req.file) {
         var cUrl = config.s3Url + req.file.filename;
-        console.log("cUrl:", cUrl);
+        // console.log("cUrl:", cUrl);
         db.addImages(req.session.userId, cUrl)
             .then(results => {
                 res.json(results);
@@ -106,7 +106,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 });
 
 app.get("/user", (req, res) => {
-    console.log("get request in user");
+    // console.log("get request in user");
     db.getUserData(req.session.userId).then(results => {
         res.json(results.rows[0]);
     });
@@ -121,7 +121,7 @@ app.get("/welcome", function(req, res) {
 });
 
 app.post("/registration", (req, res) => {
-    console.log("req body in SERVER /registration: ", req.body);
+    // console.log("req body in SERVER /registration: ", req.body);
     const { first, last, email, password } = req.body;
     hash(password)
         .then(hash => {
@@ -164,6 +164,7 @@ app.post("/login", (req, res) => {
             console.log("error in email: ", err);
         });
 });
+
 app.get("/user/:id/info", function(req, res) {
     // console.log("user/id/json: ", req.pareams);
     db.otherPersonProfiles(req.params.id)
@@ -172,6 +173,35 @@ app.get("/user/:id/info", function(req, res) {
             res.json(err);
         });
     console.log("my data log: ", req);
+});
+
+app.get("/friendship/:id", (req, res) => {
+    // console.log("my data log from friend button: ", req.params.id);
+    // console.log("my data log req.session: ", req.session.userId);
+    db.friendButton(req.params.id, req.session.userId)
+        .then(data => res.json(data))
+        .catch(err => {
+            res.json({ success: false });
+            console.log("Error in GET /api/friend/id: ", err);
+        });
+});
+
+app.post("/makefriend/:id", (req, res) => {
+    db.makeFriends(req.params.id, req.session.userId)
+        .then(data => res.json({ success: true }))
+        .catch(err => {
+            res.json({ success: false });
+            console.log("Error in POST /makefriend/id: ", err);
+        });
+});
+
+app.post("/cancelfriend/:id", (req, res) => {
+    db.cancelFriend(req.params.id, req.session.userId)
+        .then(() => res.json({ success: true }))
+        .catch(err => {
+            res.json({ success: false });
+            console.log("Error in POST /cancelfriend/id: ", err);
+        });
 });
 
 app.get("/logout", function(req, res) {

@@ -32,15 +32,18 @@ body {
 .bigpic #profilepic {
     height: 250px;
     width: 250px;
+    border-radius: 15px;
 }
 
 .opp-container {
     margin: 20px;
+    border-radius: 15px;
 }
 
 #otherpersonpic {
     height: 250px;
     width: 250px;
+    border-radius: 15px;
 }
 
 .bigpic {

@@ -49,17 +49,17 @@ export default class App extends React.Component {
         axios
             .get("/user")
             .then(({ data }) => {
-                console.log("resp in axios /get then: ", data);
+                // console.log("resp in axios /get then: ", data);
                 this.setState(data);
             })
             .then(() => {
-                console.log("this is my app axios data: ", this.state);
+                // console.log("this is my app axios data: ", this.state);
             });
     }
 
     //#1 first it renders
     render() {
-        console.log("render of state ", this.state);
+        // console.log("render of state ", this.state);
         return (
             <div>
                 <div className="nav">

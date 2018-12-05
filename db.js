@@ -59,3 +59,41 @@ exports.otherPersonProfiles = id => {
         [id]
     );
 };
+
+exports.friendButton = (receiver, sender) => {
+    return db.query(
+        `SELECT *
+        FROM friendships
+        WHERE (receiverid = $1 AND senderid = $2)
+        OR (receiverid = $2 AND senderid = $1)`,
+        [receiver, sender]
+    );
+};
+
+exports.makeFriends = (receiver, sender) => {
+    return db.query(
+        `INSERT INTO friendships (receiverid, senderid)
+        VALUES ($1, $2)
+        RETURNING *`,
+        [receiver, sender]
+    );
+};
+
+exports.cancelFriend = (receiverid, senderid) => {
+    return db.query(
+        `DELETE FROM friendships
+            WHERE (receiverid = $1 AND senderid = $2)
+            RETURNING *`,
+        [receiverid, senderid]
+    );
+};
+
+exports.acceptFriend = (receiverid, senderid) => {
+    return db.query(
+        `UPDATE friendships
+            SET accepted = true
+            WHERE (receiverid = $1 AND senderid = $2)
+            RETURNING *`,
+        [receiverid, senderid]
+    );
+};

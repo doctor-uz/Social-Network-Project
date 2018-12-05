@@ -24,11 +24,11 @@ export default class Login extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("handle submit runnig", this.state);
+        // console.log("handle submit runnig", this.state);
         axios
             .post("/login", this.state)
             .then(resp => {
-                console.log("resp in then of POST /registration", resp);
+                // console.log("resp in then of POST /registration", resp);
 
                 //if allesgut
                 //redirecting user to route

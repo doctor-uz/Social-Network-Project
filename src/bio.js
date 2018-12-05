@@ -24,7 +24,7 @@ export default class Bio extends React.Component {
     }
 
     handleChange(e) {
-        console.log("handle Change running!", e.target.value);
+        // console.log("handle Change running!", e.target.value);
         // console.log("name of input: ", e.target.name);
 
         this.setState(

@@ -1,7 +1,7 @@
 import React from "react";
 
 export default function ProfilePic(props) {
-    console.log("props is: ", props);
+    // console.log("props is: ", props);
     return (
         <div className="firstlast">
             <img

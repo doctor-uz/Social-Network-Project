@@ -10,7 +10,7 @@ export default class Uploader extends React.Component {
     }
 
     handleChange(e) {
-        console.log("handle change", e.target.files[0]);
+        // console.log("handle change", e.target.files[0]);
         this.setState({
             [e.target.name]: e.target.files[0]
         });
@@ -18,7 +18,7 @@ export default class Uploader extends React.Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log("handle submit runing!");
+        // console.log("handle submit runing!");
         var formData = new FormData();
         formData.append("file", this.state.file);
 
@@ -26,7 +26,7 @@ export default class Uploader extends React.Component {
         axios
             .post("/upload", formData)
             .then(function(resp) {
-                console.log("resp data: ", resp.data);
+                // console.log("resp data: ", resp.data);
                 self.props.updateImage(resp.data.rows[0].profilepicurl);
                 self.props.hideUploader();
             })

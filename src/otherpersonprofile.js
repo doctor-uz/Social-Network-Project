@@ -3,6 +3,8 @@ import React from "react";
 import axios from "./axios";
 // import ProfilePic from "./profilepic";
 
+import FriendButton from "./friendbutton";
+
 export default class OtherPersonProfile extends React.Component {
     constructor() {
         super();
@@ -14,7 +16,7 @@ export default class OtherPersonProfile extends React.Component {
         axios
             .get(`/user/${this.props.match.params.id}/info`)
             .then(({ data }) => {
-                console.log("SPICED: ", data);
+                // console.log("SPICED: ", data);
 
                 if (
                     data.data.rows.length == 0 ||
@@ -43,16 +45,14 @@ export default class OtherPersonProfile extends React.Component {
                             : "/unknown.jpeg"
                     }
                 />
-                <h1>OPP running!!!!</h1>
                 <br /> <br />
-                {this.state.first} {this.state.last}
-                <br /> <br />
+                <h4>
+                    {this.state.first} {this.state.last}
+                </h4>
                 {this.state.email}
                 <br /> <br />
                 {this.state.bio}
-                <br /> <br />
-                {this.state.created_at}
-                <br /> <br />
+                <FriendButton otherUserId={this.props.match.params.id} />
             </div>
         );
     }
