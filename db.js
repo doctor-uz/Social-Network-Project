@@ -107,3 +107,15 @@ exports.deleteFriend = (receiver, sender) => {
         [receiver, sender]
     );
 };
+
+exports.lists = id => {
+    return db.query(
+        `SELECT users.id, first, last, profilePicUrl, accepted
+    FROM friendships
+    JOIN users
+    ON (accepted = false AND receiverid = $1 AND senderid = users.id)
+    OR (accepted = true AND receiverid = $1 AND senderid = users.id)
+    OR (accepted = true AND senderid = $1 AND receiverid = users.id)`,
+        [id]
+    );
+};

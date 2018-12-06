@@ -12,32 +12,28 @@ export default class FriendButton extends React.Component {
     }
 
     componentDidMount() {
-        var self = this;
-        axios.get("/friendship/" + this.props.otherUserId).then(({ data }) => {
+        // var self = this;
+        axios.get("/friendship/" + this.props.otherUserId).then(data => {
             console.log("component did mount friendship data: ", data);
-            if (data.rows.length) {
-                if (data.rows[0].accepted) {
-                    self.setState({
-                        click: "deletefriend",
-                        buttontext: "End Friendship"
-                    });
-                } else {
-                    if (self.props.otherUserId == data.rows[0].receiver) {
-                        self.setState({
-                            click: "cancelfriend",
-                            buttontext: "Cancel Friend Request"
-                        });
-                    } else {
-                        self.setState({
-                            click: "acceptfriend",
-                            buttontext: "Accept Friend Request"
-                        });
-                    }
-                }
-            } else {
-                self.setState({
-                    click: "makefriend",
-                    buttonText: "Make Friend Request"
+            if (data.data.rows.length == 0) {
+                console.log("get friends data.rows[0]:", data.data.rows);
+                this.setState({
+                    buttontext: "Make friend request"
+                });
+            } else if (
+                data.data.rows[0].receiverid == this.props.otherUserId &&
+                data.data.rows[0].accepted == false
+            ) {
+                this.setState({
+                    buttontext: "Cancel friend request"
+                });
+            } else if (!data.data.rows[0].accepted) {
+                this.setState({
+                    buttontext: "AcceptFriendRequest"
+                });
+            } else if (data.data.rows[0].accepted) {
+                this.setState({
+                    buttontext: "deletefriend"
                 });
             }
         });
@@ -46,52 +42,46 @@ export default class FriendButton extends React.Component {
     handleClick(e) {
         e.preventDefault();
 
-        if (this.state.click == "makefriend") {
-            let self = this;
-            axios.post("/makefriend/" + this.props.otherUserId).then(data => {
+        if (this.state.buttontext == "Make friend request") {
+            // let self = this;
+            axios.post("/makefriend/" + this.props.otherUserId).then(() => {
                 // console.log("handleclick of friendships: ", data);
-                data.success &&
-                    self.setState({
-                        click: "cancelfriend",
-                        buttontext: "cancel friend request"
-                    });
+
+                this.setState({
+                    buttontext: "Cancel friend request"
+                });
             });
         }
 
-        if (this.state.click == "cancelfriend") {
-            let self = this;
-            axios.post("/cancelfriend/" + this.props.otherUserId).then(data => {
+        if (this.state.buttontext == "Cancel friend request") {
+            // let self = this;
+            axios.post("/cancelfriend/" + this.props.otherUserId).then(() => {
                 // console.log("handleclick of friendships: ", data);
-                data.success &&
-                    self.setState({
-                        click: "makeFriend",
-                        buttontext: "Make friend request"
-                    });
+
+                this.setState({
+                    buttontext: "Make friend request"
+                });
             });
         }
 
-        if (this.state.click == "acceptfriend") {
+        if (this.state.buttontext == "AcceptFriendRequest") {
             let self = this;
             return axios
                 .post("/acceptfriend/" + this.props.otherUserId)
-                .then(({ data }) => {
-                    data.success &&
-                        self.setState({
-                            click: "deletefriend",
-                            buttontext: "End Friendship"
-                        });
+                .then(() => {
+                    self.setState({
+                        buttontext: "deletefriend"
+                    });
                 });
         }
-        if (this.state.click == "deletefriend") {
+        if (this.state.buttontext == "deletefriend") {
             let self = this;
             return axios
                 .post("/deletefriend/" + this.props.otherUserId)
-                .then(({ data }) => {
-                    data.success &&
-                        self.setState({
-                            click: "deletefriend",
-                            buttontext: "Make Friend Request"
-                        });
+                .then(() => {
+                    self.setState({
+                        buttontext: "Make Friend Request"
+                    });
                 });
         }
     }
@@ -103,7 +93,6 @@ export default class FriendButton extends React.Component {
             .then(({ data }) => {
                 data.success &&
                     self.setState({
-                        click: "makefriend",
                         buttontext: "Make Friend Request"
                     });
             });
