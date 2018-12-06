@@ -97,3 +97,13 @@ exports.acceptFriend = (receiverid, senderid) => {
         [receiverid, senderid]
     );
 };
+
+exports.deleteFriend = (receiver, sender) => {
+    return db.query(
+        `DELETE FROM friendships
+            WHERE (receiverid = $1 AND senderid = $2)
+            OR (receiverid = $2 AND senderid = $1)
+            RETURNING *`,
+        [receiver, sender]
+    );
+};

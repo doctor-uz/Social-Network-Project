@@ -172,7 +172,7 @@ app.get("/user/:id/info", function(req, res) {
         .catch(err => {
             res.json(err);
         });
-    console.log("my data log: ", req);
+    // console.log("my data log: ", req);
 });
 
 app.get("/friendship/:id", (req, res) => {
@@ -201,6 +201,33 @@ app.post("/cancelfriend/:id", (req, res) => {
         .catch(err => {
             res.json({ success: false });
             console.log("Error in POST /cancelfriend/id: ", err);
+        });
+});
+
+app.post("/acceptfriend/:id", (req, res) => {
+    db.acceptFriend(req.session.userId, req.params.id)
+        .then(() => res.json({ success: true }))
+        .catch(err => {
+            res.json({ success: false });
+            console.log("Error in POST /acceptFriend/id: ", err);
+        });
+});
+
+app.post("/rejectfriend/:id", (req, res) => {
+    db.cancelFriend(req.session.userId, req.params.id)
+        .then(() => res.json({ success: true }))
+        .catch(err => {
+            res.json({ success: false });
+            console.log("Error in POST /rejectFriend/id: ", err);
+        });
+});
+
+app.post("/deleteFriend/:id", (req, res) => {
+    db.deleteFriend(req.session.userId, req.params.id)
+        .then(() => res.json({ success: true }))
+        .catch(err => {
+            res.json({ success: false });
+            console.log("Error in POST /deleteFriend/id: ", err);
         });
 });
 
