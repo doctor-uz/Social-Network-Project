@@ -3,20 +3,34 @@ import ReactDOM from "react-dom";
 import Welcome from "./welcome";
 //import Logo from "./logo";
 import App from "./app";
+import { composeWithDevTools } from "redux-devtools-extension";
 
-// import Hello from "./hello";
+//with Redux
+import { createStore, applyMiddleware } from "redux";
+import reduxPromise from "redux-promise";
+// import componseWithDevTools from "redux-devtools-extension";
+import reducer from "./reducer";
+import { Provider } from "react-redux";
+
+const store = createStore(
+    reducer,
+    composeWithDevTools(applyMiddleware(reduxPromise))
+);
+
+let component;
+if (location.pathname === "/welcome") {
+    //render welcome
+    component = <Welcome />;
+} else {
+    component = (
+        <Provider store={store}>
+            <App />
+        </Provider>
+    );
+}
 
 //ReactDOM.render should only be called ones
 //do not try to write this code in any other location
 //because that is wrong
-
-let component;
-if (location.pathname == "/welcome") {
-    //render welcome
-    component = <Welcome />;
-} else {
-    //render welcome
-    component = <App />;
-}
 
 ReactDOM.render(component, document.querySelector("main"));

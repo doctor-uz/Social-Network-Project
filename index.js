@@ -231,6 +231,21 @@ app.post("/deleteFriend/:id", (req, res) => {
         });
 });
 
+//part 7
+app.get("/friendslist", (req, res) => {
+    db.lists(req.session.userId)
+        .then(data => {
+            console.log("get lists from user ID is ", req.session.userId);
+            res.json(data.rows);
+        })
+        .catch(err => {
+            res.json({
+                success: false
+            });
+            console.log("error indexjs in get / friendslist:", err);
+        });
+});
+
 app.get("/logout", function(req, res) {
     req.session = null;
     res.redirect("/login");

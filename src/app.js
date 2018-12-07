@@ -6,6 +6,7 @@ import Uploader from "./uploader";
 import { BrowserRouter, Route } from "react-router-dom";
 import Profile from "./profile";
 import OtherPersonProfile from "./otherpersonprofile";
+import Friends from "./friends";
 
 export default class App extends React.Component {
     constructor() {
@@ -114,6 +115,7 @@ export default class App extends React.Component {
                                     );
                                 }}
                             />
+                            <Route path="/friends/" component={Friends} />
                         </div>
                     </BrowserRouter>
                 </div>
