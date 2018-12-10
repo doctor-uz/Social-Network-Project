@@ -319,6 +319,7 @@ io.on("connection", socket => {
 
     socket.on("disconnect", function() {
         //this code heppenes whenever user disconnects
+        delete onlineUsers[socket.id];
         io.sockets.emit("userLeft", userId);
         console.log(`socket user id ${socket.id} is disconnected`);
     });
