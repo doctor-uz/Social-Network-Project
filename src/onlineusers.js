@@ -21,7 +21,9 @@ class OnlineUsers extends React.Component {
                             <div key={online.id}>
                                 <img
                                     id="picfriends"
-                                    src={online.profilepicurl}
+                                    src={
+                                        online.profilepicurl || "/unknown.jpeg"
+                                    }
                                 />
                                 {online.first} {online.last}
                             </div>
