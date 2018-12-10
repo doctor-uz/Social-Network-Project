@@ -1,5 +1,11 @@
 const express = require("express");
 const app = express();
+
+//part 8
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
+///
+
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const { hash, compare } = require("./bcrypt");
@@ -58,12 +64,15 @@ if (process.env.NODE_ENV != "production") {
 
 app.use(require("cookie-parser")());
 
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
 
 app.use(express.static("./public"));
 
@@ -259,6 +268,69 @@ app.get("*", function(req, res) {
     }
 });
 
-app.listen(8080, function() {
+//replace app to server
+//otherwise you will get CFRF errors
+server.listen(8080, function() {
     console.log("I'm listening.");
+});
+
+//who is online?
+let onlineUsers = {};
+//Server socket code here ...
+io.on("connection", socket => {
+    // console.log(`User with socket id ${socket.id} just connected`);
+    // console.log(socket.request.session.userId);
+    let socketId = socket.id;
+    let userId = socket.request.session.userId;
+
+    onlineUsers[socketId] = userId;
+
+    // console.log(onlineUsers);
+
+    let arrOfIds = Object.values(onlineUsers);
+    // console.log(arrOfIds);
+
+    db.getUsersByIds(arrOfIds)
+        .then(results => {
+            // console.log("results: ", results);
+
+            //person who just connected
+            socket.emit("onlineUsers", results.rows);
+            // console.log("socket emit results.rows, ", );
+        })
+        .catch(err => {
+            console.log("err in getUsersByIds ", err);
+        });
+
+    if (arrOfIds.filter(id => id == userId).length == 1) {
+        console.log("this is from DAVID id: ", userId);
+
+        db.getJoinedId(userId).then(result => {
+            socket.broadcast.emit("userJoined", result.rows[0]);
+
+            console.log("Joined ID is: ", result.rows[0]);
+        });
+    }
+
+    //for userJoined we need to infoirm everyone expecting
+    //person who just connected
+    //and we need to inform those otherPersonProfileple to let them know
+    //there is new person
+
+    socket.on("disconnect", function() {
+        //this code heppenes whenever user disconnects
+        io.sockets.emit("userLeft", userId);
+        console.log(`socket user id ${socket.id} is disconnected`);
+    });
+
+    //pass emit 2 arguments
+    //1 argument name os the msg we want to sendFile
+    //2 argument is data we want to send along with msg
+    //data can include: result from db query, result from API call, normal array, object ....
+
+    // db.getUser(userId).then(results => {
+    //     socket.emit("catnip", results);
+    // });
+
+    // socket.emit("catnip", "socket fun!!!!");
 });

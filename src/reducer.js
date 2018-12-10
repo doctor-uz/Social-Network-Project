@@ -33,5 +33,29 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "ONLINE_USERS") {
+        return {
+            ...state,
+            onlineUsers: action.onlineUsers
+        };
+    }
+
+    if (action.type == "USER_JOINED") {
+        return {
+            ...state,
+            onlineUsers: [...state.onlineUsers, action.userJoined]
+        };
+    }
+
+    if (action.type == "USER_LEFT") {
+        return {
+            ...state,
+            onlineUsers: state.onlineUsers.filter(user => {
+                return user.id != action.userLeft;
+                // console.log("filter user left ", user);
+            })
+        };
+    }
+
     return state;
 }

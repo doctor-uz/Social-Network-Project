@@ -119,3 +119,13 @@ exports.lists = id => {
         [id]
     );
 };
+
+exports.getUsersByIds = arrayOfIds => {
+    const query = `SELECT id, first, last, profilepicurl FROM users WHERE id = ANY($1)`;
+    return db.query(query, [arrayOfIds]);
+};
+
+exports.getJoinedId = id => {
+    const query = `SELECT id, first, last, profilepicurl FROM users WHERE id = $1`;
+    return db.query(query, [id]);
+};

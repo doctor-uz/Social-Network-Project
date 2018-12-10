@@ -12,6 +12,8 @@ import reduxPromise from "redux-promise";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
 
+import initSocket from "./socket";
+
 const store = createStore(
     reducer,
     composeWithDevTools(applyMiddleware(reduxPromise))
@@ -22,11 +24,12 @@ if (location.pathname === "/welcome") {
     //render welcome
     component = <Welcome />;
 } else {
-    component = (
+    component = (initSocket(store),
+    (
         <Provider store={store}>
             <App />
         </Provider>
-    );
+    ));
 }
 
 //ReactDOM.render should only be called ones
