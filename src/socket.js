@@ -1,5 +1,11 @@
 import * as io from "socket.io-client";
-import { onlineUsers, userJoined, userLeft } from "./actions";
+import {
+    onlineUsers,
+    userJoined,
+    userLeft,
+    addMessages,
+    singleMessage
+} from "./actions";
 
 let socket;
 
@@ -25,6 +31,16 @@ export default function initSocket(store) {
         socket.on("userLeft", userWhoLeft => {
             store.dispatch(userLeft(userWhoLeft));
             console.log("socket.js userWho left is: ", userWhoLeft);
+        });
+
+        socket.on("messages", data => {
+            console.log("data:", data);
+            store.dispatch(addMessages(data));
+        });
+
+        socket.on("singleMessage", data => {
+            store.dispatch(singleMessage(data));
+            console.log("socket.js single message: ", data);
         });
     }
 

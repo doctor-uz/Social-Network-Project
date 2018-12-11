@@ -46,3 +46,19 @@ export async function userLeft(userWhoLeft) {
         userLeft: userWhoLeft
     };
 }
+
+export function addMessages(messages) {
+    //console.log("action at messages running!");
+    return {
+        type: "ADD_MESSAGES",
+        addMessages: messages
+    };
+}
+
+export function singleMessage(data) {
+    //console.log("action at messages running!");
+    return {
+        type: "SINGLE_MESSAGE",
+        singleMessage: data
+    };
+}

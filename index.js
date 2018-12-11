@@ -276,6 +276,10 @@ server.listen(8080, function() {
 
 //who is online?
 let onlineUsers = {};
+///
+//
+// part 9
+
 //Server socket code here ...
 io.on("connection", socket => {
     // console.log(`User with socket id ${socket.id} just connected`);
@@ -312,11 +316,6 @@ io.on("connection", socket => {
         });
     }
 
-    //for userJoined we need to infoirm everyone expecting
-    //person who just connected
-    //and we need to inform those otherPersonProfileple to let them know
-    //there is new person
-
     socket.on("disconnect", function() {
         //this code heppenes whenever user disconnects
         delete onlineUsers[socket.id];
@@ -324,14 +323,36 @@ io.on("connection", socket => {
         console.log(`socket user id ${socket.id} is disconnected`);
     });
 
-    //pass emit 2 arguments
-    //1 argument name os the msg we want to sendFile
-    //2 argument is data we want to send along with msg
-    //data can include: result from db query, result from API call, normal array, object ....
+    //class 11.12
 
-    // db.getUser(userId).then(results => {
-    //     socket.emit("catnip", results);
-    // });
+    socket.on("chatMessage", msg => {
+        console.log("message from chat.js", msg);
+        db.insertMessages(msg, userId)
+            .then(results => {
+                console.log("chatMessage results:", results);
+                db.currentUser(userId).then(data => {
+                    console.log("data in currentUser:", data);
+                    io.sockets.emit("singleMessage", data);
+                });
+            })
+            .catch(err => {
+                console.log("error indexjs / chatMessage:", err);
+            });
+    });
 
-    // socket.emit("catnip", "socket fun!!!!");
+    // socket.emit("messages", arrOfMessages);
+
+    //part9
+    //receiving the message from frontend to server:
+
+    // console.log("message from chat.js", msg);
+    db.getMessages()
+        .then(results => {
+            console.log("getMessages results:", results.rows);
+            io.sockets.emit("messages", results.rows);
+        })
+        .catch(err => {
+            console.log("error indexjs / getMessages:", err);
+        });
+    //io.sockets.emit -> send this to socket.js then in redux and the message should appear instantly
 });

@@ -57,5 +57,20 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "ADD_MESSAGES") {
+        //console.log("action in add messages reducer:", action);
+        return {
+            ...state,
+            addMessages: action.addMessages
+        };
+    }
+
+    if (action.type == "SINGLE_MESSAGE") {
+        return {
+            ...state,
+            singleMessage: [...state.singleMessage, action.singleMessage]
+        };
+    }
+
     return state;
 }
