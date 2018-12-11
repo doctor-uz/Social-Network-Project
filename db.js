@@ -147,6 +147,7 @@ exports.getMessages = () => {
         FROM chats AS c
        LEFT JOIN users AS u
        ON c.user_id = u.id
+       ORDER BY c.id ASC
        LIMIT 10`
     );
 };

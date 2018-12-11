@@ -40,7 +40,7 @@ class Chat extends React.Component {
             //render de animals arrays
             return (
                 <div key={messageId}>
-                    <p>{elem.messages}</p>
+                    <h2>{elem.messages}</h2>
                     {elem.last} {elem.first}{" "}
                     <img
                         id="picfriendschat"
