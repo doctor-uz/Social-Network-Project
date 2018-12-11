@@ -143,22 +143,24 @@ exports.insertMessages = (messages, user_id) => {
 //select messages
 exports.getMessages = () => {
     return db.query(
-        `SELECT u.first, u.last, u.profilePicUrl, c.messages AS messages, c.id AS "messageId"
+        `SELECT u.first, u.last, u.profilePicUrl, c.messages AS messages, c.id AS "messageId", c.createtime
         FROM chats AS c
        LEFT JOIN users AS u
        ON c.user_id = u.id
-       ORDER BY c.id ASC
+       ORDER BY c.createtime DESC
        LIMIT 10`
     );
 };
 
-exports.currentUser = () => {
+exports.currentUser = id => {
     return db.query(
-        `SELECT u.first, u.last, u.profilePicUrl, c.messages AS messages, c.id AS "messageId"
+        `SELECT u.first, u.last, u.profilePicUrl, c.messages AS messages, c.id AS "messageId", c.createtime
         FROM chats AS c
        LEFT JOIN users AS u
        ON c.user_id = u.id
-       ORDER BY c.id DESC
-       LIMIT 10`
+       WHERE c.id = $1
+       ORDER BY c.createtime DESC
+       `,
+        [id]
     );
 };

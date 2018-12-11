@@ -41,7 +41,7 @@ class Chat extends React.Component {
             return (
                 <div key={messageId}>
                     <h2>{elem.messages}</h2>
-                    {elem.last} {elem.first}{" "}
+                    {elem.last} {elem.first} {elem.createtime}
                     <img
                         id="picfriendschat"
                         src={elem.profilepicurl || "/unknown.jpeg"}

@@ -57,6 +57,14 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    if (action.type == "SINGLE_MESSAGE") {
+        console.log("REDUSER single message: ", action);
+        return {
+            ...state,
+            addMessages: [...state.addMessages, action.singleMessage]
+        };
+    }
+
     if (action.type == "ADD_MESSAGES") {
         //console.log("action in add messages reducer:", action);
         return {
@@ -71,14 +79,6 @@ export default function reducer(state = {}, action) {
     //         singleMessage: [...state.singleMessage, action.singleMessage]
     //     };
     // }
-
-    if (action.type == "SINGLE_MESSAGE") {
-        console.log("REDUSER single message: ", action);
-        return {
-            ...state,
-            addMessages: [...state.addMessages, action.singleMessage]
-        };
-    }
 
     return state;
 }

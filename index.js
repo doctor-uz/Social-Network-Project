@@ -332,7 +332,7 @@ io.on("connection", socket => {
                 // console.log("chatMessage results:", results);
                 db.currentUser(results.rows[0].id).then(data => {
                     console.log("data in currentUser:", data.rows[0]);
-                    socket.emit("singleMessage", data.rows[0]);
+                    io.sockets.emit("singleMessage", data.rows[0]);
                 });
             })
             .catch(err => {
