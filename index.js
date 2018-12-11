@@ -320,19 +320,19 @@ io.on("connection", socket => {
         //this code heppenes whenever user disconnects
         delete onlineUsers[socket.id];
         io.sockets.emit("userLeft", userId);
-        console.log(`socket user id ${socket.id} is disconnected`);
+        // console.log(`socket user id ${socket.id} is disconnected`);
     });
 
     //class 11.12
 
     socket.on("chatMessage", msg => {
-        console.log("message from chat.js", msg);
+        // console.log("message from chat.js", msg);
         db.insertMessages(msg, userId)
             .then(results => {
-                console.log("chatMessage results:", results);
-                db.currentUser(userId).then(data => {
-                    console.log("data in currentUser:", data);
-                    io.sockets.emit("singleMessage", data);
+                // console.log("chatMessage results:", results);
+                db.currentUser(results.rows[0].id).then(data => {
+                    console.log("data in currentUser:", data.rows[0]);
+                    socket.emit("singleMessage", data.rows[0]);
                 });
             })
             .catch(err => {

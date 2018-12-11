@@ -65,10 +65,18 @@ export default function reducer(state = {}, action) {
         };
     }
 
+    // if (action.type == "SINGLE_MESSAGE") {
+    //     return {
+    //         ...state,
+    //         singleMessage: [...state.singleMessage, action.singleMessage]
+    //     };
+    // }
+
     if (action.type == "SINGLE_MESSAGE") {
+        console.log("REDUSER single message: ", action);
         return {
             ...state,
-            singleMessage: [...state.singleMessage, action.singleMessage]
+            addMessages: [...state.addMessages, action.singleMessage]
         };
     }
 

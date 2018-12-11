@@ -6,13 +6,40 @@ body {
     margin: 0;
 }
 
-.chat-container {
-    border: 2px solid black;
-    margin: 20px;
+.container {
+    width: 100%;
 }
 
-.messages-container {
-    margin: 20px;
+.chatbox {
+    float: left;
+    height: 100px;
+    width: 30%;
+}
+
+#message {
+    padding-top: 180px;
+    padding-left: 70px;
+    margin-top: 0;
+}
+
+h3 {
+    font-family: "Helvetica";
+    padding-left: 160px;
+    margin-bottom: 0;
+    color: grey;
+}
+
+.chat-container {
+    float: right;
+    border: 1px solid black;
+    padding-left: 20px;
+    margin-right: 100px;
+    /* margin-left: 400px; */
+    margin-top: 20px;
+    box-shadow: 2px 5px #888888;
+    height: 500px;
+    width: 50%;
+    overflow-y: auto;
 }
 
 .welcome-container {

@@ -55,7 +55,7 @@ export function addMessages(messages) {
     };
 }
 
-export function singleMessage(data) {
+export async function singleMessage(data) {
     //console.log("action at messages running!");
     return {
         type: "SINGLE_MESSAGE",

@@ -22,10 +22,10 @@ class Chat extends React.Component {
     }
 
     componentDidUpdate() {
-        //console.log("this.elem:", this.elem);
-        //here write code to change the scroll top to bottom to see
-        //I might not need this code on my social network
-        //this.elem.scrollTop = this.elem.scrollHeight;
+        if (!this.elem) {
+            return null;
+        }
+        this.elem.scrollTop = this.elem.scrollHeight;
     }
 
     render() {
@@ -51,18 +51,21 @@ class Chat extends React.Component {
         });
 
         return (
-            <div className="chat-container">
+            <div className="container">
                 <div
-                    className="messages-container"
+                    className="chat-container"
                     ref={elem => (this.elem = elem)}
                 >
                     {arrOfMessages}
                 </div>
-                <textarea
-                    name="chat"
-                    className="chatbox"
-                    onKeyDown={this.sendMessage}
-                />
+                <div id="message">
+                    <h3>Send message</h3>
+                    <textarea
+                        className="chatbox"
+                        name="chat"
+                        onKeyDown={this.sendMessage}
+                    />
+                </div>
             </div>
         );
     }

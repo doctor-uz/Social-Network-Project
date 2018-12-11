@@ -40,7 +40,7 @@ export default function initSocket(store) {
 
         socket.on("singleMessage", data => {
             store.dispatch(singleMessage(data));
-            console.log("socket.js single message: ", data);
+            console.log("single message single message: ", data);
         });
     }
 

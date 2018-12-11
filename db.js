@@ -147,16 +147,17 @@ exports.getMessages = () => {
         FROM chats AS c
        LEFT JOIN users AS u
        ON c.user_id = u.id
-       ORDER BY c.id DESC
        LIMIT 10`
     );
 };
 
-exports.currentUser = id => {
+exports.currentUser = () => {
     return db.query(
-        `SELECT id AS userId, first, last, profilePicUrl
-        FROM users
-        WHERE id = $1`,
-        [id]
+        `SELECT u.first, u.last, u.profilePicUrl, c.messages AS messages, c.id AS "messageId"
+        FROM chats AS c
+       LEFT JOIN users AS u
+       ON c.user_id = u.id
+       ORDER BY c.id DESC
+       LIMIT 10`
     );
 };
