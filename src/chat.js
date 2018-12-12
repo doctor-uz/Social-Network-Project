@@ -33,19 +33,31 @@ class Chat extends React.Component {
         if (!this.props.messages) {
             return null;
         }
+        // console.log("messages:", this.props.messages);
+        // var isEmpty;
+        //
+        // if (this.props.messages.length == 0) {
+        //     isEmpty = "Empty message";
+        // }
 
         let arrOfMessages = this.props.messages.map((elem, messageId) => {
             //elem is every message in my array
-            //console.log("elem:", elem);
             //render de animals arrays
             return (
-                <div key={messageId}>
-                    <h2>{elem.messages}</h2>
-                    {elem.last} {elem.first} {elem.createtime}
-                    <img
-                        id="picfriendschat"
-                        src={elem.profilepicurl || "/unknown.jpeg"}
-                    />
+                <div key={messageId} className="single">
+                    <div className="wrapping">
+                        <h2>{elem.messages}</h2>
+                    </div>
+                    <div className="space" />
+
+                    <div className="names">
+                        <img
+                            id="picfriendschat"
+                            src={elem.profilepicurl || "/unknown.jpeg"}
+                        />
+                        <br />
+                        {elem.first} {elem.createtime}
+                    </div>
                 </div>
             );
         });
@@ -58,6 +70,7 @@ class Chat extends React.Component {
                 >
                     {arrOfMessages}
                 </div>
+
                 <div id="message">
                     <h3>Send message</h3>
                     <textarea
@@ -73,6 +86,7 @@ class Chat extends React.Component {
 
 const mapStateToProps = state => {
     //console.log("state in mapStateToProps", state);
+
     return {
         messages: state.addMessages
     };

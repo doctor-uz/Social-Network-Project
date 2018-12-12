@@ -4,5 +4,5 @@ CREATE TABLE chats(
     id SERIAL PRIMARY KEY,
     messages TEXT NOT NULL,
     user_id INTEGER NOT NULL REFERENCES users(id),
-    createtime TIMESTAMP WITHOUT TIME ZONE DEFAULT current_timestamp
+    createtime TIMESTAMP DEFAULT current_timestamp
 );

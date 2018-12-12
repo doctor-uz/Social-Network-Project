@@ -26,7 +26,27 @@ h3 {
     font-family: "Helvetica";
     padding-left: 160px;
     margin-bottom: 0;
-    color: grey;
+    /* color: grey; */
+}
+
+.single {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* .space {
+    width: 250px;
+} */
+
+.wrapping {
+    white-space: wrap;
+    width: 400px;
+}
+
+.names {
+    width: 200px;
+    /* position: absolute; */
+    /* justify-content: space-between; */
 }
 
 .chat-container {

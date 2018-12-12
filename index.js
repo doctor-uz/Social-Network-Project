@@ -307,12 +307,12 @@ io.on("connection", socket => {
         });
 
     if (arrOfIds.filter(id => id == userId).length == 1) {
-        console.log("this is from DAVID id: ", userId);
+        // console.log("this is from DAVID id: ", userId);
 
         db.getJoinedId(userId).then(result => {
             socket.broadcast.emit("userJoined", result.rows[0]);
 
-            console.log("Joined ID is: ", result.rows[0]);
+            // console.log("Joined ID is: ", result.rows[0]);
         });
     }
 
@@ -331,7 +331,12 @@ io.on("connection", socket => {
             .then(results => {
                 // console.log("chatMessage results:", results);
                 db.currentUser(results.rows[0].id).then(data => {
-                    console.log("data in currentUser:", data.rows[0]);
+                    // console.log("data in currentUser:", data.rows[0]);
+                    // console.log("current time: ", data.rows[0].createtime);
+                    var d = new Date(data.rows[0].createtime);
+                    // console.log("d: ", d);
+                    data.rows[0].createtime = d.toLocaleTimeString();
+
                     io.sockets.emit("singleMessage", data.rows[0]);
                 });
             })
@@ -340,15 +345,18 @@ io.on("connection", socket => {
             });
     });
 
-    // socket.emit("messages", arrOfMessages);
-
-    //part9
-    //receiving the message from frontend to server:
-
-    // console.log("message from chat.js", msg);
     db.getMessages()
         .then(results => {
-            console.log("getMessages results:", results.rows);
+            // console.log("getMessages results.rows:", results.rows);
+
+            // if (results.rows.length == 0) {
+            //     return results;
+            // }
+            for (var i = 0; i < results.rows.length; i++) {
+                var d = new Date(results.rows[i].createtime);
+                results.rows[i].createtime = d.toLocaleTimeString();
+            }
+
             io.sockets.emit("messages", results.rows);
         })
         .catch(err => {

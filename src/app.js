@@ -9,6 +9,7 @@ import OtherPersonProfile from "./otherpersonprofile";
 import Friends from "./friends";
 import Onlineusers from "./onlineusers";
 import Chat from "./chat";
+import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
@@ -67,6 +68,7 @@ export default class App extends React.Component {
             <div>
                 <div className="nav">
                     <Logo className="logo" />
+
                     <ProfilePic
                         className="profilepic"
                         first={this.state.first}
@@ -101,7 +103,6 @@ export default class App extends React.Component {
                                     );
                                 }}
                             />
-
                             <Route
                                 path="/user/:id"
                                 render={props => {
