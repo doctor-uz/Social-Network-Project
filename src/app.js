@@ -66,64 +66,101 @@ export default class App extends React.Component {
         // console.log("render of state ", this.state);
         return (
             <div>
-                <div className="nav">
-                    <Logo className="logo" />
+                <BrowserRouter>
+                    <div>
+                        <div className="nav">
+                            <Logo className="logo" />
 
-                    <ProfilePic
-                        className="profilepic"
-                        first={this.state.first}
-                        last={this.state.last}
-                        profilePicUrl={
-                            this.state.profilepicurl
-                                ? this.state.profilepicurl
-                                : "/unknown.jpeg"
-                        }
-                        showUploader={this.showUploader}
-                    />
-                </div>
-                <div id="body">
-                    <BrowserRouter>
-                        <div>
-                            <Route
-                                exact
-                                path="/"
-                                render={() => {
-                                    return (
-                                        <Profile
-                                            id={this.state.id}
-                                            first={this.state.first}
-                                            last={this.state.last}
-                                            profilePicUrl={
-                                                this.state.profilepicurl
-                                            }
-                                            bio={this.state.bio}
-                                            setBio={this.setBio}
-                                            showUploader={this.showUploader}
-                                        />
-                                    );
-                                }}
+                            <ProfilePic
+                                className="profilepic"
+                                first={this.state.first}
+                                last={this.state.last}
+                                profilePicUrl={
+                                    this.state.profilepicurl
+                                        ? this.state.profilepicurl
+                                        : "/unknown.jpeg"
+                                }
+                                showUploader={this.showUploader}
                             />
-                            <Route
-                                path="/user/:id"
-                                render={props => {
-                                    return (
-                                        <OtherPersonProfile
-                                            {...props}
-                                            key={props.match.url}
-                                            first={this.state.first}
-                                            last={this.state.last}
-                                            email={this.state.email}
-                                            bio={this.state.bio}
-                                        />
-                                    );
-                                }}
-                            />
-                            <Route path="/friends/" component={Friends} />
-                            <Route path="/online/" component={Onlineusers} />
-                            <Route path="/chat/" component={Chat} />
                         </div>
-                    </BrowserRouter>
-                </div>
+                        <div className="backgroundMenu">
+                            <div className="nav2">
+                                <a>
+                                    <Link to="/">Home</Link>
+                                </a>
+
+                                <div className="dropdown">
+                                    <button className="dropbtn">Others</button>
+                                    <div className="dropdown-content">
+                                        <a>
+                                            <Link to="/online">
+                                                Online friends
+                                            </Link>
+                                        </a>
+                                        <a>
+                                            <Link to="/chat">Chat room</Link>
+                                        </a>
+                                        <a>
+                                            <Link to="/friends/">Friends</Link>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <a href="/logout">
+                                    Logout
+                                    <i
+                                        className="fa fa-caret-down"
+                                        aria-hidden="true"
+                                    />
+                                </a>
+                            </div>
+                        </div>
+                        <div id="body">
+                            <div>
+                                <Route
+                                    exact
+                                    path="/"
+                                    render={() => {
+                                        return (
+                                            <Profile
+                                                id={this.state.id}
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                profilePicUrl={
+                                                    this.state.profilepicurl
+                                                }
+                                                bio={this.state.bio}
+                                                setBio={this.setBio}
+                                                showUploader={this.showUploader}
+                                            />
+                                        );
+                                    }}
+                                />
+                                <Route
+                                    path="/user/:id"
+                                    render={props => {
+                                        return (
+                                            <OtherPersonProfile
+                                                {...props}
+                                                key={props.match.url}
+                                                first={this.state.first}
+                                                last={this.state.last}
+                                                email={this.state.email}
+                                                bio={this.state.bio}
+                                            />
+                                        );
+                                    }}
+                                />
+                                <Route path="/friends/" component={Friends} />
+                                <Route
+                                    path="/online/"
+                                    component={Onlineusers}
+                                />
+                                <Route path="/chat/" component={Chat} />
+                            </div>
+                        </div>
+                    </div>
+                </BrowserRouter>
 
                 {this.state.uploaderIsVisible && (
                     <Uploader

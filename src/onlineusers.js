@@ -14,18 +14,21 @@ class OnlineUsers extends React.Component {
 
         return (
             <div className="online-container">
-                <h1>Users Online!</h1>
+                <h3 className="friends">Online friends ...</h3>
                 {this.props.user &&
                     this.props.user.map(online => {
                         return (
-                            <div key={online.id}>
+                            <div className="friendbox1" key={online.id}>
                                 <img
                                     id="picfriends"
                                     src={
                                         online.profilepicurl || "/unknown.jpeg"
                                     }
                                 />
-                                {online.first} {online.last}
+                                <span className="dot" />
+                                <p className="friendname">
+                                    {online.first} {online.last}
+                                </p>
                             </div>
                         );
                     })}

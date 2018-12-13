@@ -40,7 +40,7 @@ export default class Uploader extends React.Component {
         return (
             <div className="uploader">
                 <h1>Upload a new avatar</h1>
-                <h2 onClick={this.props.hideUploader}>close</h2>
+                <h2 onClick={this.props.hideUploader}>X</h2>
                 <form onSubmit={this.handleSubmit}>
                     <input
                         name="file"

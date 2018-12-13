@@ -27,45 +27,62 @@ class Friends extends React.Component {
 
         return (
             <div className="lists-container">
-                <h1>Friends</h1>
+                <h3 className="friends">Friends</h3>
                 <div className="lists">
                     {friends.map(friend => {
                         return (
-                            <div key={friend.id}>
+                            <div key={friend.id} className="friendbox">
                                 <img
+                                    className="friendpic"
                                     id="picfriends"
-                                    src={friend.profilepicurl}
+                                    src={
+                                        friend.profilepicurl || "/unknown.jpeg"
+                                    }
                                 />
-                                {friend.first} {friend.last}
+                                <p className="friendname">
+                                    {friend.first} {friend.last}
+                                </p>
                                 <button
+                                    className="friendbutton"
                                     onClick={() =>
                                         this.props.dispatch(unfriend(friend.id))
                                     }
                                 >
-                                    EndFriendship
+                                    End friendship
                                 </button>
                             </div>
                         );
                     })}
                 </div>
-                <h1>Wannabes</h1>
-                {wannabes.map(wannabe => {
-                    return (
-                        <div key={wannabe.id}>
-                            <img id="picfriends" src={wannabe.profilepicurl} />
-                            {wannabe.first} {wannabe.last}
-                            <button
-                                onClick={() =>
-                                    this.props.dispatch(
-                                        acceptfriend(wannabe.id)
-                                    )
-                                }
-                            >
-                                AcceptFriendRequest
-                            </button>
-                        </div>
-                    );
-                })}
+                <h3 className="friends">Wannabes</h3>
+                <div className="lists">
+                    {wannabes.map(wannabe => {
+                        return (
+                            <div key={wannabe.id} lassName="friendbox">
+                                <img
+                                    className="friendpic"
+                                    id="picfriends"
+                                    src={
+                                        wannabe.profilepicurl || "/unknown.jpeg"
+                                    }
+                                />
+                                <p className="friendname">
+                                    {wannabe.first} {wannabe.last}
+                                </p>
+                                <button
+                                    className="friendbutton"
+                                    onClick={() =>
+                                        this.props.dispatch(
+                                            acceptfriend(wannabe.id)
+                                        )
+                                    }
+                                >
+                                    Accept friend request
+                                </button>
+                            </div>
+                        );
+                    })}
+                </div>
             </div>
         );
     }

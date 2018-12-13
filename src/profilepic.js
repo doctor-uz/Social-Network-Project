@@ -9,9 +9,9 @@ export default function ProfilePic(props) {
                 src={props.profilePicUrl}
                 onClick={props.showUploader}
             />
-            <h3 id="firstlast">
+            <p className="myname">
                 {props.first} {props.last}
-            </h3>
+            </p>
         </div>
     );
 }

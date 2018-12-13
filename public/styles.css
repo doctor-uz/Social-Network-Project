@@ -2,8 +2,15 @@
     box-sizing: border-box;
 }
 
+html,
 body {
+    position: fixed;
+    padding: 0;
     margin: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .container {
@@ -14,6 +21,13 @@ body {
     float: left;
     height: 100px;
     width: 30%;
+}
+
+textarea {
+    border-radius: 30px;
+    padding: 10px;
+    border: 2px solid skyblue;
+    font-size: 20px;
 }
 
 #message {
@@ -29,32 +43,55 @@ h3 {
     /* color: grey; */
 }
 
+#write {
+    font-family: "Helvetica Neue";
+    margin-bottom: 0;
+    width: 400px;
+    text-align: center;
+}
+
+.friends {
+    color: #474f85;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    font-family: "Helvetica Neue";
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: green;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.names {
+    padding-right: 20px;
+}
+
+#time {
+    color: gray;
+}
 .single {
     display: flex;
     justify-content: space-between;
 }
-
-/* .space {
-    width: 250px;
-} */
 
 .wrapping {
     white-space: wrap;
     width: 400px;
 }
 
-.names {
-    width: 200px;
-    /* position: absolute; */
-    /* justify-content: space-between; */
+.time {
+    color: gray;
 }
 
 .chat-container {
     float: right;
-    border: 1px solid black;
+    border: 2px solid skyblue;
+    border-radius: 20px;
     padding-left: 20px;
     margin-right: 100px;
-    /* margin-left: 400px; */
     margin-top: 20px;
     box-shadow: 2px 5px #888888;
     height: 400px;
@@ -63,14 +100,38 @@ h3 {
 }
 
 .welcome-container {
-    border: 3px solid black;
-    background: skyblue;
-    padding: 10px;
+    margin-left: 38%;
+    margin-top: 50px;
 }
 
-.registration-container {
-    border: 3px solid black;
-    background: gray;
+h5 {
+    color: #0196c6;
+    font-family: "Great Vibes", cursive;
+    font-size: 35px;
+    margin-bottom: 0px;
+    margin-right: 30px;
+    margin-top: 30px;
+    text-shadow: 0 2px 2px black;
+}
+
+.welcomediv {
+    margin: 0;
+    margin-left: 25%;
+}
+
+.regform {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputform {
+    width: 300px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.buttonform {
+    width: 100px;
 }
 
 .error {
@@ -82,8 +143,8 @@ h3 {
 }
 
 #profilepic {
-    height: 100px;
-    width: 100px;
+    height: 80px;
+    width: 80px;
     border-radius: 15px;
     margin-right: 20px;
     /* float: right; */
@@ -127,27 +188,108 @@ h3 {
     justify-content: space-around;
 }
 
-.logo-container {
-    border-radius: 15px;
-    margin-left: 20px;
-}
-
 .nav {
     background-color: #f1f1f1;
     display: flex;
     justify-content: space-between;
     padding: 10px;
+    padding-bottom: 10px;
+}
+.logo-container {
+    margin-left: 40px;
+    width: 100px;
+    margin-bottom: 15px;
+}
+
+.friendbutton {
+    width: 180px;
+    height: 35px;
+    border-radius: 20px;
+    background-color: gray;
+    color: white;
+    font-family: "Helvetica Neue";
+    font-size: 16px;
+    margin-left: 20px;
+    margin-top: 0;
+}
+
+.friendbox {
+    display: flex;
+    flex-direction: column;
+    margin-left: 30px;
+}
+
+.friendbox1 {
+    margin-left: 30px;
+}
+
+.friendname {
+    font-size: 18px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    font-family: "Helvetica Neue";
+}
+
+.myname {
+    font-size: 18px;
+    padding-right: 10px;
+    margin-bottom: 0;
+    font-family: "Helvetica Neue";
+}
+
+.friendpic {
+    margin-bottom: 10;
+}
+
+.network {
+    margin-left: 350px;
+}
+
+.nav2 {
+    background-color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+
+    padding: 10px;
+    border-top: 2px solid gray;
+    margin-left: 30px;
+    margin-right: 30px;
+    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
+    /* border-top-width: 20px; */
+    /* border-bottom: 2px solid gray; */
+}
+
+.nav2 a {
+    /* float: left; */
+    font-size: 18px;
+    /* color: white; */
+    text-align: center;
+    padding: 10px 12px;
+    margin: 0;
+    text-decoration: none;
+}
+
+.nav2 a:hover {
+    background-color: gray;
+    color: white;
+}
+
+.backgroundMenu {
+    background-color: #f1f1f1;
 }
 
 .firstlast {
     display: flex;
     align-items: flex-end;
     flex-direction: row-reverse;
+    margin-bottom: 15px;
 }
 
-#firstlast {
+/* #firstlast {
     margin-right: 20px;
-}
+} */
 
 #firstlast2 {
     margin-left: 20px;
@@ -165,4 +307,286 @@ h3 {
     transition-delay: 1s;
     transform: translateX(33%);
     background-color: rgba(101, 104, 138, 0.87);
+}
+
+.dropdown {
+    float: left;
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 18px;
+    border: none;
+    /* outline: none; */
+    /* color: white; */
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    color: #551a8b;
+}
+
+.navbar a:hover,
+.dropdown:hover .dropbtn {
+    background-color: gray;
+    color: white;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    float: none;
+    color: #551a8b;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {
+    background-color: gray;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+@media screen and (min-width: 375px) and (max-width: 667px) {
+    .chatbox {
+        float: left;
+        height: 100px;
+        width: 30%;
+    }
+
+    #message {
+        padding-top: 180px;
+        padding-left: 70px;
+        margin-top: 0;
+    }
+
+    h3 {
+        font-family: "Helvetica";
+        padding-left: 160px;
+        margin-bottom: 0;
+    }
+
+    #write {
+        font-family: "Helvetica Neue";
+        margin-bottom: 0;
+        width: 400px;
+        text-align: center;
+    }
+
+    .single {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .wrapping {
+        white-space: wrap;
+        width: 400px;
+    }
+
+    .firstTime {
+        position: absolute;
+        width: 200px;
+    }
+
+    .chat-container {
+        float: right;
+        border: 1px solid black;
+        padding-left: 20px;
+        margin-right: 100px;
+        /* margin-left: 400px; */
+        margin-top: 20px;
+        box-shadow: 2px 5px #888888;
+        height: 400px;
+        width: 50%;
+        overflow-y: auto;
+    }
+
+    .welcome-container {
+        border: 3px solid black;
+        background: skyblue;
+        padding: 10px;
+    }
+
+    .registration-container1 {
+        margin-left: 200px;
+    }
+
+    .error {
+        color: red;
+    }
+
+    .chatbox {
+        margin: 20px;
+    }
+
+    #profilepic {
+        height: 80px;
+        width: 80px;
+        border-radius: 15px;
+    }
+
+    #picfriends {
+        width: 100px;
+        height: 100px;
+        border-radius: 15px;
+        margin: 10px 20px;
+    }
+
+    #picfriendschat {
+        width: 50px;
+        height: 50px;
+        border-radius: 15px;
+        margin: 10px 20px;
+    }
+
+    .bigpic #profilepic {
+        height: 250px;
+        width: 250px;
+        border-radius: 15px;
+    }
+
+    .opp-container {
+        margin: 20px;
+        border-radius: 15px;
+    }
+
+    #otherpersonpic {
+        height: 250px;
+        width: 250px;
+        border-radius: 15px;
+    }
+
+    .bigpic {
+        float: left;
+        padding: 50px 20px 20px 20px;
+        display: flex;
+        justify-content: space-around;
+    }
+
+    .logo-container {
+        border-radius: 15px;
+        margin-left: 20px;
+    }
+
+    .nav {
+        background-color: #f1f1f1;
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        padding-bottom: 10px;
+    }
+    .nav2 {
+        background-color: #f1f1f1;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        border-top: 2px solid gray;
+        margin-left: 30px;
+        margin-right: 30px;
+        overflow: hidden;
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .nav2 a {
+        /* float: left; */
+        font-size: 18px;
+        /* color: white; */
+        text-align: center;
+        padding: 10px 12px;
+        margin: 0;
+        text-decoration: none;
+    }
+
+    .nav2 a:hover {
+        background-color: gray;
+        color: white;
+    }
+
+    .backgroundMenu {
+        background-color: #f1f1f1;
+    }
+
+    .firstlast {
+        /* display: flex; */
+        /* align-items: flex-end;
+        flex-direction: row-reverse; */
+    }
+
+    #firstlast {
+        /* margin-right: 20px; */
+    }
+
+    #firstlast2 {
+        /* margin-left: 20px; */
+    }
+    .uploader {
+        background-color: #65688a;
+        display: inline-block;
+        text-align: center;
+        justify-content: center;
+        right: 600px;
+        padding: 20px;
+        position: absolute;
+        border-radius: 14px;
+        z-index: 9999;
+        transition-delay: 1s;
+        transform: translateX(33%);
+        background-color: rgba(101, 104, 138, 0.87);
+    }
+
+    .dropdown {
+        float: left;
+        overflow: hidden;
+    }
+
+    .dropdown .dropbtn {
+        font-size: 18px;
+        border: none;
+        padding: 14px 16px;
+        background-color: inherit;
+        font-family: Arial, Helvetica, sans-serif;
+        margin: 0;
+    }
+
+    .navbar a:hover,
+    .dropdown:hover .dropbtn {
+        background-color: gray;
+    }
+
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+    }
+
+    .dropdown-content a {
+        float: none;
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+    }
+
+    .dropdown-content a:hover {
+        background-color: gray;
+    }
+
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
 }

@@ -2,12 +2,13 @@ import React from "react";
 
 export default function Logo() {
     return (
-        <div>
+        <div className="logobar">
+            <img width="100px" className="logo-container" src="/logo_dr.png" />
             <img
-                className="logo-container"
-                src="/logo_dr.png"
-                width="80"
-                height="100"
+                width="250px"
+                height="110px"
+                className="network"
+                src="/network.gif"
             />
         </div>
     );

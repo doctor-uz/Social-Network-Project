@@ -18,6 +18,8 @@ class Chat extends React.Component {
             //console.log("user's message:", e.target.value);
             //emiting a message from client to server 2part
             socket.emit("chatMessage", e.target.value);
+            e.target.value = "";
+            e.preventDefault();
         }
     }
 
@@ -33,22 +35,13 @@ class Chat extends React.Component {
         if (!this.props.messages) {
             return null;
         }
-        // console.log("messages:", this.props.messages);
-        // var isEmpty;
-        //
-        // if (this.props.messages.length == 0) {
-        //     isEmpty = "Empty message";
-        // }
 
         let arrOfMessages = this.props.messages.map((elem, messageId) => {
-            //elem is every message in my array
-            //render de animals arrays
             return (
                 <div key={messageId} className="single">
                     <div className="wrapping">
                         <h2>{elem.messages}</h2>
                     </div>
-                    <div className="space" />
 
                     <div className="names">
                         <img
@@ -56,7 +49,10 @@ class Chat extends React.Component {
                             src={elem.profilepicurl || "/unknown.jpeg"}
                         />
                         <br />
-                        {elem.first} {elem.createtime}
+                        <div>
+                            {elem.first}{" "}
+                            <span id="time">{elem.createtime}</span>
+                        </div>
                     </div>
                 </div>
             );
@@ -72,10 +68,10 @@ class Chat extends React.Component {
                 </div>
 
                 <div id="message">
-                    <h3>Send message</h3>
                     <textarea
                         className="chatbox"
                         name="chat"
+                        placeholder="Write a message here and press ENTER"
                         onKeyDown={this.sendMessage}
                     />
                 </div>
