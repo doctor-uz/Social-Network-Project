@@ -11,7 +11,7 @@ export default function Welcome() {
             <div className="nav">
                 <Logo className="logo" />
                 <dir className="welcomediv">
-                    <h5 className="welcome">Welcom to DR+</h5>
+                    <h5 className="welcome">Welcome to DR+</h5>
                 </dir>
             </div>
             <div className="welcome-container1">
