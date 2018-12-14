@@ -43,7 +43,7 @@ export default class Registration extends React.Component {
         return (
             <div className="registration-container1">
                 <div className="registration-container">
-                    <h1>Registration running!!!</h1>
+                    <h1 className="loginandregister">Registration</h1>
                     {this.state.error && (
                         <div className="error">Error, please try again!</div>
                     )}
@@ -84,7 +84,7 @@ export default class Registration extends React.Component {
                             placeholder="password"
                         />
                         <br />
-                        <button className="buttonform">register</button>
+                        <button className="buttonform">Register</button>
                     </form>
                 </div>
             </div>

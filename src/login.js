@@ -47,26 +47,31 @@ export default class Login extends React.Component {
     render() {
         return (
             <div>
-                <h1>login!!!!!!!!!</h1>
+                <h1 className="loginandregister">Login</h1>
                 {this.state.error && (
                     <div className="error">Error, please try again!</div>
                 )}
-                <Link to="/">Click here to registration</Link>
-
-                <form onSubmit={this.handleSubmit}>
+                <p>
+                    <Link to="/">Click here to register</Link>
+                </p>
+                <form className="regform" onSubmit={this.handleSubmit}>
                     <input
+                        className="inputform"
                         onChange={this.handleChange}
                         name="email"
                         type="text"
                         placeholder="email"
                     />
+                    <br />
                     <input
+                        className="inputform"
                         onChange={this.handleChange}
                         name="password"
                         type="password"
                         placeholder="password"
                     />
-                    <button>Log in</button>
+                    <br />
+                    <button className="buttonform">Log in</button>
                 </form>
             </div>
         );
