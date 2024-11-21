@@ -11,11 +11,13 @@ import Onlineusers from "./onlineusers";
 import Chat from "./chat";
 import { Link } from "react-router-dom";
 
+console.log("Hello! I am trying to add my code ....");
+
 export default class App extends React.Component {
     constructor() {
         super();
         this.state = {
-            uploaderIsVisible: false
+            uploaderIsVisible: false,
         };
         this.showUploader = this.showUploader.bind(this);
         this.hideUploader = this.hideUploader.bind(this);
@@ -25,25 +27,25 @@ export default class App extends React.Component {
 
     showUploader() {
         this.setState({
-            uploaderIsVisible: true
+            uploaderIsVisible: true,
         });
     }
 
     hideUploader() {
         this.setState({
-            uploaderIsVisible: false
+            uploaderIsVisible: false,
         });
     }
 
     updateImage(cUrl) {
         this.setState({
-            profilepicurl: cUrl
+            profilepicurl: cUrl,
         });
     }
 
     setBio(text) {
         this.setState({
-            bio: text
+            bio: text,
         });
     }
 
@@ -138,7 +140,7 @@ export default class App extends React.Component {
                                 />
                                 <Route
                                     path="/user/:id"
-                                    render={props => {
+                                    render={(props) => {
                                         return (
                                             <OtherPersonProfile
                                                 {...props}
