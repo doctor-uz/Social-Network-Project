@@ -16,7 +16,7 @@
         "fix-styles": "prettier-stylelint --write 'src/**/*.{css,scss}' "
     },
     "dependencies": {
-        "axios": "^0.15.3",
+        "axios": "^0.21.1",
         "babel-cli": "^6.18.0",
         "babel-core": "^6.20.0",
         "babel-loader": "^6.2.9",
